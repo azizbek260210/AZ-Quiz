@@ -1,0 +1,51 @@
+{% extends 'front/base.html' %}
+
+{% block content %}
+
+
+<div class="main-content">
+    
+    <div style="margin-right: 200px;" class="card">
+        <div class="card-body">
+            <h4>Quizlar ro`yxati</h4>
+            <div class="m-t-25">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Quiz nomi</th>
+                                <th scope="col">Harakatlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for quiz in quizzes %}
+                            <tr>
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td><a style="color: black" href="{% url 'front:quiz_detail' quiz.code %}"> <b> {{quiz.name}} </b></a> </td>
+                                <td><button class="btn btn-rounded" onclick="myFunction('{% url 'front:quiz_detail' quiz.code %}')"><i class="text-primary anticon anticon-link"></i></button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction(url) {
+        var inp = document.createElement('input');
+        document.body.appendChild(inp);
+        inp.value = url.startsWith('/') ? '127.0.0.1:8000' + url : '127.0.0.1:8000/' + url;
+        inp.select();
+        document.execCommand('copy', false);
+        inp.remove();
+        alert('Savolning linki copy qilindi!');
+    }
+</script>
+
+
+
+{% endblock %}

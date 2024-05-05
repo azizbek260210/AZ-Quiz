@@ -1,0 +1,73 @@
+{% extends 'front/base.html' %}
+
+{% block content %}
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="header-title">Quiz</h2>
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
+                <a class="breadcrumb-item" href="#">Quizlar</a>
+                <span class="breadcrumb-item active">{{ quiz.name }}</span>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <form id="quiz-form" action="" method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="user_name">Full name</label>
+                    <input type="text" class="form-control" id="user_name" placeholder="Full name" name="user_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" placeholder="+998********" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="example@gmail.com" name="email">
+                </div>
+                {% for question in questions %}
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                    <h2 class="font-weight-normal m-b-10">{{ forloop.counter }}. {{ question.name | striptags }}</h2>
+                    </div>
+                    <div class="card-body">
+                    <div class="m-t-25">
+                        {% for option in question.options %}
+                        <div class="radio">
+                            <input id="radio{{ question.id }}_{{ option.id }}" 
+                                name="question[{{ question.id }}]"  type="radio" value="{{ option.id }}">
+                            <label for="radio{{ question.id }}_{{ option.id }}">{{ option.name }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <button class="btn btn-success" type="submit" data-toggle="modal" data-target="#resultModal">Yuborish</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resultModalLabel">Result</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 id="resultText">To'g'ri javoblar soni: {{ correct }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

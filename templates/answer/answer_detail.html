@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!-- Content Wrapper START -->
+         <div class="main-content">
+            <div class="page-header no-gutters">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between m-b-15">
+                            <h4 class="m-b-0">Javoblar ro`yhati</h4>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between m-b-15">
+                            <h4 class="m-b-0">Umumiy savollar: {{total}}</h4>
+                            <h4 class="m-b-0">To`g`ri javoblar soni: {{correct}}</h4>
+                            <h4 class="m-b-0">Noto`g`ri javoblar soni: {{in_correct}}</h4>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between m-b-15">
+                            <h4 class="m-b-0">100 %</h4>
+                            <h4 class="m-b-0">{{correct_percentage}} %</h4>
+                            <h4 class="m-b-0">{{in_correct_percentage}} %</h4>
+                        </div>
+                        <div class="m-t-25">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Savol</th>
+                                            <th scope="col">To`g`ri javob</th>
+                                            <th scope="col">Kiritlgan javob</th>
+                                            <th scope="col">Holat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for d in details %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{d.question}}</td>
+                                            <td>{{d.question.correct_answer.name}}</td>
+                                            <td>{{d.user_answer.name}}</td>
+                                            {% if d.is_correct %}
+                                            <td><button>To`g`ri </button></td>
+                                            {% else %}
+                                            <td><button>Noto`g`ri </button></td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content Wrapper END -->
+        
+{% endblock %}

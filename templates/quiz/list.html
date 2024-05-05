@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<!-- Content Wrapper START -->
+         <div class="main-content">
+            <div class="page-header no-gutters">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between m-b-15">
+                            <h4 class="m-b-0">Quizlar ro`yhati</h4>
+                            <div class="card-toolbar">
+                                <ul>
+                                    <li>
+                                        <a class="text-gray" href="{% url 'dashboard:quiz_create' %}">
+                                            <button class="btn btn-primary btn-tone m-r-5">Quiz qo`shish</button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="m-t-25">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Harakatlar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for q in quizzes %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td><a href="{% url 'dashboard:quiz_detail' q.code %}">{{q.name}}</a></td>
+                                            <td>{{q.all}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content Wrapper END -->
+        
+{% endblock %}

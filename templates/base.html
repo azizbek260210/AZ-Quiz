@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>AZ | Quiz</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/logo/favicon.png' %}">
+
+    <!-- page css -->
+    <link href="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}" rel="stylesheet">
+
+    <!-- Core css -->
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout">
+            {% if user.is_authenticated %}
+            <!-- Header START -->
+            <div class="header">
+                <div class="logo logo-dark">
+                    <a href="{% url 'dashboard:index' %}">
+                        <img src="{% static 'images/logo/logo.png' %}" alt="Logo" width="200px">
+                        <img class="logo-fold" src="{% static 'images/logo/logo-fold.png' %}" alt="Logo">
+                    </a>
+                </div>
+                <div class="logo logo-white">
+                    <a href="{% url 'dashboard:index' %}">
+                        <img src="{% static 'images/logo/logo-white.png' %}" alt="Logo" width="200px">
+                        <img class="logo-fold" src="{% static 'images/logo/logo-fold-white.png' %}" alt="Logo">
+                    </a>
+                </div>
+                <div class="nav-wrap">
+                    <ul class="nav-left">
+                        <li class="desktop-toggle">
+                            <a href="javascript:void(0);">
+                                <i class="anticon"></i>
+                            </a>
+                        </li>
+                        <li class="mobile-toggle">
+                            <a href="javascript:void(0);">
+                                <i class="anticon"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <ul class="nav-right">
+                        <li class="dropdown dropdown-animated scale-left">
+                            <div class="pointer" data-toggle="dropdown">
+                                <div class="avatar avatar-image  m-h-10 m-r-15">
+                                    <img src="{% static 'images/avatars/thumb-3.jpg' %}"  alt="">
+                                </div>
+                            </div>
+                            <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
+                                <div class="p-h-20 p-b-15 m-b-10 border-bottom">
+                                    <div class="d-flex m-r-50">
+                                        <div class="avatar avatar-lg avatar-image">
+                                            <img src="{% static 'images/avatars/thumb-3.jpg' %}" alt="">
+                                        </div>
+                                        <div class="m-l-10">
+                                            <p class="m-b-0 text-dark font-weight-semibold">{{user.username}}</p>
+                                            <p class="m-b-0 opacity-07">{% if user.is_staff %}Admin {% else %}Foydalanuvchi{% endif %}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{% url 'dashboard:quiz_list' %}" class="dropdown-item d-block p-h-15 p-v-10">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <i class="anticon opacity-04 font-size-16 anticon-project"></i>
+                                            <span class="m-l-10">Quizes</span>
+                                        </div>
+                                        <i class="anticon font-size-10 anticon-right"></i>
+                                    </div>
+                                </a>
+                                <a href="{% url 'dashboard:logout' %}" class="dropdown-item d-block p-h-15 p-v-10">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div>
+                                            <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
+                                            <span class="m-l-10">Logout</span>
+                                        </div>
+                                        <i class="anticon font-size-10 anticon-right"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>    
+            <!-- Header END -->
+
+            <!-- Side Nav START -->
+            <div class="side-nav">
+                <div class="side-nav-inner">
+                    <ul class="side-nav-menu scrollable">
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-dashboard"></i>
+                                </span>
+                                <span class="title">Quiz</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu" style="display: none;">
+                                <li class="">
+                                    <a href="{% url 'dashboard:quiz_create' %}">Quiz yaratish</a>
+                                </li>
+                                <li class="active">
+                                    <a href="{% url 'dashboard:quiz_list' %}">Quizlar ro`yhati</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Side Nav END -->              
+            {% endif %}
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                
+                {% block content %}
+                {% endblock %}
+                <!-- Footer START -->
+                <footer class="footer">
+                    <div class="footer-content">
+                        <p class="m-b-0">Copyright © 2019 Quiz.</p>
+                    </div>
+                </footer>
+                <!-- Footer END -->
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+
+    
+    <!-- Core Vendors JS -->
+    <script src="{% static 'js/vendors.min.js' %}"></script>
+
+    <!-- page js -->
+    <script src="{% static 'vendors/chartjs/Chart.min.js' %}"></script>
+    <script src="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'js/pages/dashboard-project.js' %}"></script>
+
+    <!-- Core JS -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+
+</body>
+
+</html>

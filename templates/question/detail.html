@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main-content">
+    <div class="page-header">
+        <h2 class="header-title">Quiz</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <div class="d-flex justify-content-around" >
+                    <h2 class="font-weight-normal m-b-10">{{question.name}}</h2>
+                    <a href="#"><button class="btn btn-primary btn-tone m-r-5">O`zgartirish</button></a>
+                    <a href="{% url 'dashboard:question_delete' question.code %}"><button class="btn btn-danger btn-tone m-r-5">O`chirish</button></a>
+                </div>
+                {% for option in options %}
+                <div class="alert alert-{% if option.is_correct %}success{% else %}danger{% endif %}">
+                    <p>{{option.name}}</p>
+                </div>                  
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
